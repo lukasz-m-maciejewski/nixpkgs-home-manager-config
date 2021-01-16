@@ -9,18 +9,35 @@
   home.username = "lukaszm";
   home.homeDirectory = "/home/lukaszm";
 
-  home.file."bin/hello" = {
-    executable = true;
-    text = ''
-      #!/bin/sh
-      echo "Hello World!"
-    '';
-  };
-
   programs.git = {
     enable = true;
     userName = "Lukasz Maciejewski";
     userEmail = "lukasz.m.maciejewski@pm.me";
+    extraConfig = { pull = { ff = "only"; }; };
+  };
+
+  programs.tmux = {
+    enable = true;
+    baseIndex = 1;
+    historyLimit = 100000;
+    escapeTime = 10;
+    shortcut = "z";
+    terminal = "screen-256color";
+  };
+
+  imports = [ ./packages.nix ./bin.nix ./etc.nix ];
+
+  xsession.pointerCursor = {
+    name = "Vanilla-DMZ-AA";
+    package = pkgs.vanilla-dmz;
+    size = 64;
+  };
+
+  gtk = {
+    enable = true;
+    font.name = "Linux Libertine";
+    theme.name = "Adwaita";
+    iconTheme.name = "Rodent";
   };
 
   # This value determines the Home Manager release that your
